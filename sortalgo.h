@@ -9,6 +9,7 @@ public:
 	void Insertsort();
 	void Shellsort();
 	void heapsort();
+	void quicksort();
 	void print();
 private:
 	std::vector<int> L;

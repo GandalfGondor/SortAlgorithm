@@ -6,6 +6,42 @@ sort_item::sort_item(vector<int> P)
 {
 	L = P;
 }
+void swap(int i,int j,vector<int> *P)
+{
+	int temp;
+	temp =	(*P)[i];
+	(*P)[i]= (*P)[j];
+	(*P)[j] = temp;
+}
+int part(int low,int high,vector<int> *P)
+{
+	int midkey = (*P)[low];
+	while(low <high)
+	{
+		while(low<high&& midkey<=(*P)[high])
+			high--;
+		swap(low,high,P);
+		while(low<high&&(*P)[low]<=midkey)
+			low++;
+		swap(low,high,P);
+	}
+	return low;
+}
+void qsort(int low,int high,vector<int> *P)
+{
+	int mid;
+	if(low<high)
+	{
+		mid = part(low,high,P);
+		qsort(low,mid-1,P);
+		qsort(mid+1,high,P);
+	}
+}
+void sort_item::quicksort()
+{
+	qsort(0,L.size()-1,&L);
+}
+
 void HeapAdjust(vector<int> *p,int i,int len)
 {
 	int j,k;
@@ -140,7 +176,8 @@ int main()
 	vector<int> T {11,3,14,123,2,55,13,56,2,45,77,7,15,6,1,28,9};
 	sort_item S(T);
 	//S.Shellsort();
-	S.heapsort();
+	//S.heapsort();
+	S.quicksort();
 	S.print();
 	return 1;
 }
