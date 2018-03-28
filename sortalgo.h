@@ -8,8 +8,8 @@ public:
 	void selectsort();
 	void Insertsort();
 	void Shellsort();
+	void heapsort();
 	void print();
-
 private:
 	std::vector<int> L;
 	

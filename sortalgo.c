@@ -6,6 +6,37 @@ sort_item::sort_item(vector<int> P)
 {
 	L = P;
 }
+void HeapAdjust(vector<int> *p,int i,int len)
+{
+	int j,k;
+	int temp = (*p)[i];
+	for(j=2*i+1;j<len-1;j=j*2+1)
+	{
+		if(j<len&&(*p)[j]<(*p)[j+1])
+			j++;
+		if((*p)[j]<=temp)
+			break;
+		(*p)[i]=(*p)[j];
+		i=j;	
+	}
+	(*p)[i]=temp;
+}
+void sort_item::heapsort()
+{
+	int i;
+	int temp;
+	for(i=L.size()/2;i>-1;i--)
+		HeapAdjust(&L,i,L.size());
+	
+	for(i=L.size();i>0;i--)
+	{
+		temp = L[i-1];
+		L[i-1]=L[0];
+		L[0] = temp;
+		HeapAdjust(&L,0,i-1);
+	}
+}
+
 
 void sort_item::bubblesort()
 {
@@ -108,7 +139,8 @@ int main()
 {
 	vector<int> T {11,3,14,123,2,55,13,56,2,45,77,7,15,6,1,28,9};
 	sort_item S(T);
-	S.Shellsort();
+	//S.Shellsort();
+	S.heapsort();
 	S.print();
 	return 1;
 }
