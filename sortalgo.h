@@ -11,6 +11,7 @@ public:
 	void heapsort();
 	void quicksort();
 	void print();
+	void Mergesort();
 private:
 	std::vector<int> L;
 	

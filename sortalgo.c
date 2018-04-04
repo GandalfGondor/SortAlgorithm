@@ -6,6 +6,52 @@ sort_item::sort_item(vector<int> P)
 {
 	L = P;
 }
+void meg(vector<int>*P2,vector<int>*P,int i,int t,int m)
+{
+	int j,k,l;
+	for(j = i,k = t+1,l=i;j<=t&&k<=m;l++)
+	{
+		if((*P2)[j]<(*P2)[k])
+		{
+			(*P)[l] =(*P2)[j];
+			j++;
+		}
+		else 
+		{
+			(*P)[l] = (*P2)[k];
+			k++;
+		}
+	}
+	if(j<=t)
+		for(;j<=t;j++,l++)
+			(*P)[l] = (*P2)[j];
+	if(k<=m)
+		for(;k<=m;k++,l++)
+			(*P)[l] = (*P2)[k];
+	return ;
+}
+void msort(vector<int> L,vector<int>*P,int i,int m)
+{
+	int a = L.size();
+	vector<int> P2(a);
+	if(i == m)
+		(*P)[i] = L[m];
+	else
+	{
+		int t = (i+m)/2;
+		msort(L,&P2,i,t);
+		msort(L,&P2,t+1,m);
+		meg(&P2,P,i,t,m);
+	}
+	
+}
+void sort_item::Mergesort()
+{
+	vector<int> P(L.size());
+	msort(L,&P,0,L.size()-1);
+	for(int i = 0;i<L.size();i++)
+		L[i]=P[i];
+}
 void swap(int i,int j,vector<int> *P)
 {
 	int temp;
@@ -173,11 +219,11 @@ void sort_item::print()
 
 int main()
 {
-	vector<int> T {11,3,14,123,2,55,13,56,2,45,77,7,15,6,1,28,9};
+	vector<int> T{11,3,14,123,2,55,13,56,2,45,77,7,15,6,1,28,9};
 	sort_item S(T);
 	//S.Shellsort();
 	//S.heapsort();
-	S.quicksort();
+	S.Mergesort();
 	S.print();
 	return 1;
 }
